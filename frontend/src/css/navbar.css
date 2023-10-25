@@ -1,0 +1,12 @@
+/* In your CSS file or within a <style> tag in your HTML */
+/* In your CSS file */
+.custom-navbar-bg {
+    background: rgba(38, 0, 255, 0.13);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.1px);
+    -webkit-backdrop-filter: blur(3.1px);
+    border: 1px solid rgba(38, 0, 255, 0.03);
+    font-family: 'Syne', sans-serif;
+  }
+  /* background: rgb(255, 255, 255);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(216, 217, 161, 1) 32%, rgba(183, 206, 210, 1) 53%, rgba(227, 186, 191, 1) 78%, rgba(225, 228, 200, 1) 100%); */
