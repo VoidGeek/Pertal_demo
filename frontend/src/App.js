@@ -93,7 +93,7 @@ const App = () => {
           <Route exact path="/admin/feeds/:id/edit" element={<EditPost />} />
           <Route exact path="/home/feeds" element={<FeedList />} />
           <Route exact path="/home/services" element={<ServiceList />} />
-          <Route exact path="/reset" element={<ResetPass />} />
+          <Route exact path="/login/reset" element={<ResetPass />} />
         </Routes>
       </div>
       <Footer />
