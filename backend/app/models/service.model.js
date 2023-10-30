@@ -1,10 +1,6 @@
 const mongoose = require("mongoose");
 
 const serviceSchema = new mongoose.Schema({
-  images:{
-    type:String,
-    required:true,
-  },
   service_name: {
     type: String,
     required: true,
@@ -28,12 +24,10 @@ const serviceSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
   },
-  images: [
+  service_image: 
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Image",
+      type: String,
     },
-  ],
 });
 
 serviceSchema.pre("findOneAndUpdate", function () {

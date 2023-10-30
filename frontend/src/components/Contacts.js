@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ContactService from "../services/contact.service";
 import { format } from "date-fns";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faEnvelope, faUser, faClock } from "@fortawesome/free-solid-svg-icons";
 
 const Contacts = () => {
   const [contacts, setContacts] = useState([]);
@@ -45,7 +45,7 @@ const Contacts = () => {
   };
 
   return (
-    <div className="min-h-screen p-4">
+    <div className="min-h-screen p-4 bg-gradient-to-br from-purple-200 to-indigo-300">
       {/* Your existing navbar from app.js will be here */}
       {loading ? (
         <div className="flex items-center justify-center h-screen">
@@ -54,13 +54,23 @@ const Contacts = () => {
       ) : (
         <div className="grid grid-cols-1 mt-5 md:grid-cols-3 gap-4">
           {contacts.map((contact) => (
-            <div key={contact._id} className="bg-white rounded-lg overflow-hidden shadow-lg">
-              <div className="p-4">
-                <h5 className="text-xl font-semibold mb-2">{contact.name}</h5>
-                <h6 className="text-gray-500 mb-2">Email: {contact.email}</h6>
+            <div
+              key={contact._id}
+              className="bg-opacity-40 bg-gradient-to-b from-red-100 to-blue-200 bg-white rounded-lg overflow-hidden backdrop-blur-100 shadow-lg transform transition-transform hover:scale-105"
+            >
+              <div className="p-4 ">
+                <h5 className="text-xl font-semibold mb-2">
+                  <FontAwesomeIcon icon={faUser} className="text-gray-600 mr-2" />
+                  {contact.name}
+                </h5>
+                <h6 className="text-gray-500 mb-2">
+                  <FontAwesomeIcon icon={faEnvelope} className="text-gray-600 mr-2" />
+                  Email: {contact.email}
+                </h6>
                 <p className="text-gray-700 mb-2">{contact.message}</p>
                 <div className="flex justify-between items-center">
                   <div className="text-gray-500">
+                    <FontAwesomeIcon icon={faClock} className="text-gray-600 mr-2" />
                     Submitted: {format(new Date(contact.submitted_at), "MMM d, yyyy")}
                     <br />
                     Time: {format(new Date(contact.submitted_at), "h:mm a")}

@@ -6,14 +6,15 @@ require('dotenv').config();
 
 
 const s3 = new aws.S3({
-  accessKeyId: "AKIAVJB7J3ESEYWCVB56",
-  secretAccessKey: "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",
-  region: "ap-south-1"
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
 });
 
 exports.createImage = async (req, res) => {
-  const { originalname, buffer } = req.file;
-  const key = `${uuidv4()}-${originalname}`; // Generate a unique key
+  const { buffer } = req.file;
+  const submissionTime = new Date().getTime(); // Get the current timestamp in milliseconds
+  const key = `${submissionTime}-${uuidv4()}`; // Generate a unique key using timestamp and uuid
 
   const params = {
     Bucket: 'bucketrial',
@@ -28,13 +29,12 @@ exports.createImage = async (req, res) => {
       Key: params.Key,
       Expires: 604800, // Set to one week (604800 seconds) to make the URL effectively never expire
     });
-    
 
     const newImage = new ImageModel({
-      name: originalname,
+      name: key, // You can use the key as the name
       imageUrl,
       s3Key: key,
-       // Save the S3 key in your MongoDB for reference
+      // Save the S3 key in your MongoDB for reference
     });
 
     await newImage.save();
@@ -45,6 +45,7 @@ exports.createImage = async (req, res) => {
     res.status(500).json({ message: 'Failed to upload image' });
   }
 };
+
 
   
   // Image delete route
@@ -80,8 +81,7 @@ exports.createImage = async (req, res) => {
       return res.status(400).json({ message: 'S3 key is required' });
     }
   
-    const { originalname, buffer } = req.file;
-    const newKey = `${uuidv4()}-${originalname}`;
+    const newKey = `${uuidv4()}-${Date.now()}.jpg`; // Use the timestamp in the key
   
     try {
       // Delete the old object from S3
@@ -90,14 +90,23 @@ exports.createImage = async (req, res) => {
       const newParams = {
         Bucket: 'bucketrial',
         Key: newKey,
-        Body: buffer,
+        Body: req.file.buffer, // Use req.file.buffer directly
       };
       await s3.upload(newParams).promise();
   
       // Update the MongoDB record with the new S3 key and URL
       const updatedImage = await ImageModel.findOneAndUpdate(
         { s3Key },
-        { $set: { s3Key: newKey, imageUrl: s3.getSignedUrl('getObject', { Bucket: 'bucketrial', Key: newParams.Key, Expires: 604800, }) } },
+        {
+          $set: {
+            s3Key: newKey,
+            imageUrl: s3.getSignedUrl('getObject', {
+              Bucket: 'bucketrial',
+              Key: newParams.Key,
+              Expires: 604800,
+            }),
+          },
+        },
         { new: true }
       );
   
@@ -105,12 +114,15 @@ exports.createImage = async (req, res) => {
         return res.status(404).json({ message: 'Image not found in the database' });
       }
   
-      res.json({ message: 'Image updated successfully', imageUrl: updatedImage.imageUrl });
+      // Modify the response to include the new s3Key
+      res.json({ message: 'Image updated successfully', s3Key: updatedImage.s3Key, imageUrl: updatedImage.imageUrl });
     } catch (error) {
       console.error(error);
       res.status(500).json({ message: 'Failed to update image' });
     }
   };
+  
+  
   
   // Get all images route
   exports.getImage = async (req, res) => {

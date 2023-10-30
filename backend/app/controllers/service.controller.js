@@ -3,7 +3,7 @@ const Service = require("../models/service.model");
 // Create a new service
 exports.createService = async (req, res) => {
   try {
-    const { service_name, service_info, benefits, images} = req.body;
+    const { service_name, service_info, benefits, service_image } = req.body;
 
     // Ensure that req.userId is defined and contains the user's ID
     if (!req.userId) {
@@ -11,28 +11,43 @@ exports.createService = async (req, res) => {
     }
 
     // Validate that all required fields are provided
-    if (!service_name || !service_info || !benefits ||!images) {
+    if (!service_name || !service_info || !benefits ) {
       return res.status(400).json({ message: "All fields are required for service creation." });
     }
 
     const adminUserId = req.userId; // Use req.userId to get the user's ID
 
     const service = new Service({
-      images,
       service_name,
       service_info,
       benefits,
       adminUser: adminUserId,
+      service_image,
     });
 
-    await service.save();
+    const savedService = await service.save();
 
-    res.status(201).json({ message: "Service created successfully" , data:Service});
+    res.status(201).json({ message: "Service created successfully", data: savedService });
   } catch (error) {
     console.error("Error creating service:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+// Update a service by ID
+exports.updateService = async (req, res) => {
+  try {
+    const service = await Service.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!service) {
+      return res.status(404).json({ message: "Service not found" });
+    }
+    res.status(200).json({ message: "Service updated successfully", data: service });
+  } catch (error) {
+    console.error("Error updating service:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 
 // Get all services
 exports.getAllServices = async (req, res) => {
@@ -60,18 +75,6 @@ exports.getServiceById = async (req, res) => {
 };
 
 // Update a service by ID
-exports.updateService = async (req, res) => {
-  try {
-    const service = await Service.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!service) {
-      return res.status(404).json({ message: "Service not found" });
-    }
-    res.status(200).json({ message: "Service updated successfully" });
-  } catch (error) {
-    console.error("Error updating service:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
 
 // Delete a service by ID
 exports.deleteService = async (req, res) => {

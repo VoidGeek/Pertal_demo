@@ -51,8 +51,75 @@ const isAdmin = async (req, res, next) => {
     return res.status(500).send({ message: "Internal Server Error" });
   }
 };
+// Custom middleware to check if the user is an admin or moderator
+// Modify the route to allow both admins and moderators
+
+const isModerator = (req, res, next) => {
+  User.findById(req.userId).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+
+    Role.find(
+      {
+        _id: { $in: user.roles },
+      },
+      (err, roles) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+
+        for (let i = 0; i < roles.length; i++) {
+          if (roles[i].name === "moderator") {
+            next();
+            return;
+          }
+        }
+
+        res.status(403).send({ message: "Require Moderator Role!" });
+        return;
+      }
+    );
+  });
+};
+
+const hasAdminOrModeratorRole = (req, res, next) => {
+  // Use the verifyToken middleware to decode the token and set user information
+  User.findById(req.userId).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+
+    Role.find(
+      {
+        _id: { $in: user.roles },
+      },
+      (err, roles) => {
+        if (err) {
+          res.status(500).send({ message: err });
+          return;
+        }
+
+        for (let i = 0; i < roles.length; i++) {
+          if ((roles[i].name === "moderator" ||roles[i].name === "admin")) {
+            next();
+            return;
+          }
+        }
+
+        res.status(403).send({ message: "Require Moderator Role!" });
+        return;
+      }
+    );
+  });
+};
 
 module.exports = {
   verifyToken,
   isAdmin,
+  isModerator,
+  hasAdminOrModeratorRole
 };

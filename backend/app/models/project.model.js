@@ -28,12 +28,10 @@ const projectSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
   },
-  images: [
+  project_image: 
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Image",
+      type: String,
     },
-  ],
 });
 
 projectSchema.pre("findOneAndUpdate", function () {

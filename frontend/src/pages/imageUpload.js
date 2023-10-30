@@ -8,6 +8,7 @@ const YourComponent = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageKey, setSelectedImageKey] = useState(null);
   const [loading, setLoading] = useState(false); // State for tracking loading state
+  
 
   useEffect(() => {
     // Fetch all images when the component mounts
@@ -83,6 +84,8 @@ const YourComponent = () => {
     setSelectedImage(image);
     setSelectedImageKey(image.s3Key);
   };
+
+ 
 
   return (
     <div className="min-h-screen p-4">

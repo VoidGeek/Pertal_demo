@@ -1,4 +1,4 @@
-const Post = require("../models/postModel"); // Replace with the actual Post model
+const Post = require("../models/post.model"); // Replace with the actual Post model
 
 const postPermission = async (req, res, next) => {
   const postId = req.params.id; // Assuming post ID is in the request parameters

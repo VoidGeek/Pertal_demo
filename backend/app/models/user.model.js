@@ -10,12 +10,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now, // Add created at field with default value set to current date
   },
-  images: [
+  user_image: 
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Image",
+      type: String,
     },
-  ],
   roles: [
     {
       type: mongoose.Schema.Types.ObjectId,

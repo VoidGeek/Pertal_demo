@@ -8,28 +8,20 @@ import AuthService from "../services/auth.service";
 
 const required = (value) => {
   if (!value) {
-    return (
-      <div className="invalid-feedback d-block">
-        This field is required!
-      </div>
-    );
+    return <div className="text-red-600">This field is required!</div>;
   }
 };
 
 const validEmail = (value) => {
   if (!isEmail(value)) {
-    return (
-      <div className="invalid-feedback d-block">
-        This is not a valid email.
-      </div>
-    );
+    return <div className="text-red-600">This is not a valid email.</div>;
   }
 };
 
 const vusername = (value) => {
   if (value.length < 3 || value.length > 20) {
     return (
-      <div className="invalid-feedback d-block">
+      <div className="text-red-600">
         The username must be between 3 and 20 characters.
       </div>
     );
@@ -39,7 +31,7 @@ const vusername = (value) => {
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
-      <div className="invalid-feedback d-block">
+      <div className="text-red-600">
         The password must be between 6 and 40 characters.
       </div>
     );
@@ -55,7 +47,6 @@ const Register = (props) => {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
-  const [selectedRole, setSelectedRole] = useState("user"); // Default to "user"
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -84,11 +75,6 @@ const Register = (props) => {
     setPhoneNo(phoneNo);
   };
 
-  const onChangeRole = (e) => {
-    const role = e.target.value;
-    setSelectedRole(role);
-  };
-
   const handleRegister = (e) => {
     e.preventDefault();
 
@@ -98,7 +84,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register(username, email, password, fullName, phoneNo, [selectedRole]).then(
+      AuthService.register(username, email, password, fullName, phoneNo, ["user"]).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -119,108 +105,109 @@ const Register = (props) => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <img
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          alt="profile-img"
-          className="profile-img-card"
-        />
+    <div className="min-h-screen bg-gradient-to-r from-purple-300 to-purple-100 flex justify-center items-center">
+      <div className="w-50 shadow-md mx-auto p-6 rounded-lg  bg-opacity-70 backdrop-blur-100 mt-8 flex">
+        <div className="w-50 p-6">
+          <h2 className="text-4xl font text-center text-black mb-6">
+            REGISTER
+          </h2>
+          <Form onSubmit={handleRegister} ref={form}>
+            {!successful && (
+              <div>
+                <div className="mb-4">
+                  <label htmlFor="username" className="text-gray-500"></label>
+                  <Input
+                    type="text"
+                    className="block w-full px-3 py-2 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-transparent bg-opacity-70 backdrop-blur-100"
+                    name="username"
+                    value={username}
+                    onChange={onChangeUsername}
+                    validations={[required, vusername]}
+                    placeholder="Username"
+                  />
+                </div>
 
-        <Form onSubmit={handleRegister} ref={form}>
-          {!successful && (
-            <div>
-              <div className="form-group">
-                <label htmlFor="username">Username</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="username"
-                  value={username}
-                  onChange={onChangeUsername}
-                  validations={[required, vusername]}
-                />
-              </div>
+                <div className="mb-4">
+                  <label htmlFor="email" className="text-gray-500"></label>
+                  <Input
+                    type="text"
+                    className="block w-full px-3 py-2 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-transparent bg-opacity-70 backdrop-blur-100"
+                    name="email"
+                    value={email}
+                    onChange={onChangeEmail}
+                    validations={[required, validEmail]}
+                    placeholder="Email"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="email"
-                  value={email}
-                  onChange={onChangeEmail}
-                  validations={[required, validEmail]}
-                />
-              </div>
+                <div className="mb-4">
+                  <label htmlFor="password" className="text-gray-500"></label>
+                  <Input
+                    type="password"
+                    className="block w-full px-3 py-2 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-transparent bg-opacity-70 backdrop-blur-100"
+                    name="password"
+                    value={password}
+                    onChange={onChangePassword}
+                    validations={[required, vpassword]}
+                    placeholder="Password"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="password">Password</label>
-                <Input
-                  type="password"
-                  className="form-control"
-                  name="password"
-                  value={password}
-                  onChange={onChangePassword}
-                  validations={[required, vpassword]}
-                />
-              </div>
+                <div className="mb-4">
+                  <label htmlFor="fullName" className="text-gray-500"></label>
+                  <Input
+                    type="text"
+                    className="block w-full px-3 py-2 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-transparent bg-opacity-70 backdrop-blur-100"
+                    name="fullName"
+                    value={fullName}
+                    onChange={onChangeFullName}
+                    placeholder="Full Name"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="fullName">Full Name</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="fullName"
-                  value={fullName}
-                  onChange={onChangeFullName}
-                />
-              </div>
+                <div className="mb-4">
+                  <label htmlFor="phoneNo" className="text-gray-500"></label>
+                  <Input
+                    type="text"
+                    className="block w-full px-3 py-2 border-b-2 border-gray-300 focus:border-blue-500 focus:outline-none bg-transparent bg-opacity-70 backdrop-blur-100"
+                    name="phoneNo"
+                    value={phoneNo}
+                    onChange={onChangePhoneNo}
+                    placeholder="Phone Number"
+                  />
+                </div>
 
-              <div className="form-group">
-                <label htmlFor="phoneNo">Phone Number</label>
-                <Input
-                  type="text"
-                  className="form-control"
-                  name="phoneNo"
-                  value={phoneNo}
-                  onChange={onChangePhoneNo}
-                />
+                <div className="text-center">
+                  <button
+                    className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full focus:outline-none"
+                  >
+                    Sign Up
+                  </button>
+                </div>
               </div>
+            )}
 
-              <div className="form-group">
-                <label htmlFor="role">Role</label>
-                <select
-                  className="form-control"
-                  name="role"
-                  value={selectedRole}
-                  onChange={onChangeRole}
-                >
-                  <option value="user">User</option>
-                  <option value="admin">Admin</option>
-                </select>
-              </div>
+            {message && (
+              <div className="text-red-600 mt-4"></div>
+            )}
+            {successful && (
+              <div className="text-green-600 mt-4">{message}</div>
+            )}
+            <CheckButton style={{ display: "none" }} ref={checkBtn} />
+          </Form>
+        </div>
+        
+        <div className="w-50 p-4" style={{ marginTop: "50px" }}>
+  <div className="flex">
+    <img
+      src="https://i.ibb.co/h11cQvB/imgonline-com-ua-twotoone-SNcgab-P2fb-Oatl-G3.png"
+      alt=""
+      className="w-100 h-30 mx-1"
+    />
+  </div>
+</div>
 
-              <div className="form-group">
-                <button className="btn btn-primary btn-block">Sign Up</button>
-              </div>
-            </div>
-          )}
 
-          {message && (
-            <div className="form-group">
-              <div
-                className={
-                  successful ? "alert alert-success" : "alert alert-danger"
-                }
-                role="alert"
-              >
-                {message}
-              </div>
-            </div>
-          )}
-          <CheckButton style={{ display: "none" }} ref={checkBtn} />
-        </Form>
       </div>
     </div>
   );

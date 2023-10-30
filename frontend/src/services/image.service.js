@@ -54,11 +54,24 @@ const deleteImage = (imageId) => {
     });
 };
 
+const getImageByKey = (s3Key) => {
+  return axios
+    .get(`${API_URL}api/images/${s3Key}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error(`Error fetching image by s3Key ${s3Key}:`, error);
+      throw error;
+    });
+};
+
 const ImageService = {
   getAllImages,
   uploadImage,
   updateImage,
   deleteImage,
+  getImageByKey, // Add the new function here
 };
 
 export default ImageService;

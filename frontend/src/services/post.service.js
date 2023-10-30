@@ -15,6 +15,19 @@ const getAllPosts = () => {
     });
 };
 
+// Fetch a post by ID
+const getPostById = (postId) => {
+  return axios
+    .get(`${API_URL}api/posts/${postId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Error fetching post by ID:", error);
+      throw error;
+    });
+};
+
 // Create a new post
 const createPost = (newPost) => {
   return axios
@@ -56,6 +69,7 @@ const deletePost = (postId) => {
 
 const PostService = {
   getAllPosts,
+  getPostById, // Add the getPostById function
   createPost,
   updatePost,
   deletePost,

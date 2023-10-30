@@ -2,9 +2,6 @@
 const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema({
-  images: {
-    type: String,
-  },
   caption: {
     type: String,
     required: true,
@@ -20,12 +17,10 @@ const postSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
   },
-  images: [
+  post_image: 
     {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Image",
+      type: String,
     },
-  ],
 });
 
 

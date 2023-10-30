@@ -2,9 +2,10 @@ const Project = require("../models/project.model");
 
 // Create a new project
 // Create a new project
+// Create a new project
 exports.createProject = async (req, res) => {
   try {
-    const { title, description, startDate, endDate, images } = req.body;
+    const { title, description, startDate, endDate, project_image } = req.body;
 
     // Ensure that req.user is defined and contains the user's ID
     if (!req.userId) {
@@ -24,17 +25,35 @@ exports.createProject = async (req, res) => {
       startDate,
       endDate,
       adminUser: adminUserId,
-      images, // Associate images with the project by passing an array of image IDs
+      project_image, // Associate images with the project by passing an array of image IDs
     });
 
     await project.save();
 
-    res.status(201).json({ message: "Project created successfully" });
+    // Send the project details in the response
+    res.status(201).json({ message: "Project created successfully", project });
   } catch (error) {
     console.error("Error creating project:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+// Update a project by ID
+exports.updateProject = async (req, res) => {
+  try {
+    const project = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
+    
+    // Send the updated project details in the response
+    res.status(200).json({ message: "Project updated successfully", project });
+  } catch (error) {
+    console.error("Error updating project:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
 
 
 
@@ -64,19 +83,6 @@ exports.getProjectById = async (req, res) => {
   }
 };
 
-// Update a project by ID
-exports.updateProject = async (req, res) => {
-  try {
-    const project = await Project.findByIdAndUpdate(req.params.id, req.body, { new: true });
-    if (!project) {
-      return res.status(404).json({ message: "Project not found" });
-    }
-    res.status(200).json({ message: "Project updated successfully" });
-  } catch (error) {
-    console.error("Error updating project:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
 
 // Delete a project by ID
 exports.deleteProject = async (req, res) => {

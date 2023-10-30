@@ -54,11 +54,26 @@ const deleteTestimonial = (testimonialId) => {
     });
 };
 
+// Get a testimonial by its ID
+const getTestimonialById = (testimonialId) => {
+  return axios
+    .get(`${API_URL}api/testimonials/${testimonialId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Error fetching testimonial by ID:", error);
+      throw error;
+    });
+};
+
 const TestimonialService = {
   getAllTestimonials,
   createTestimonial,
   updateTestimonial,
   deleteTestimonial,
+  getTestimonialById, // Add the new function here
 };
 
 export default TestimonialService;
+

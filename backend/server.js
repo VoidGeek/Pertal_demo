@@ -56,6 +56,7 @@ const postRoutes = require("./app/routes/postRoutes");
 const serviceRouter = require("./app/routes/service.routes")
 const testimonialRouter = require("./app/routes/testimonial.routes")
 const imageRoutes = require('./app/routes/imageRoutes')
+const resetRouter=require('./app/routes/reset.routes')
 
 app.use("/", contactRouter); // Mount the contact router on the /api/contacts route
 app.use("/", projectRouter); // Mount the project router on the /api/projects route
@@ -64,6 +65,7 @@ app.use("/", serviceRouter);
 app.use("/", testimonialRouter);
 app.use('/', postRoutes);
 app.use('/api', imageRoutes);
+app.use('/api',resetRouter);
 
 // Import the authentication and user routes (replace with actual paths)
 try {
@@ -107,6 +109,15 @@ function initial() {
           }
 
           console.log("added 'admin' to roles collection");
+        });
+        new Role({
+          name: "moderator"
+        }).save(err => {
+          if (err) {
+            console.log("error", err);
+          }
+  
+          console.log("added 'moderator' to roles collection");
         });
       }
     });

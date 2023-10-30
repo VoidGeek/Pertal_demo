@@ -15,6 +15,19 @@ const getAllProjects = () => {
     });
 };
 
+// Fetch a project by ID
+const getProjectById = (projectId) => {
+  return axios
+    .get(`${API_URL}api/projects/${projectId}`)
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.error("Error fetching project by ID:", error);
+      throw error;
+    });
+};
+
 // Create a new project
 const createProject = (newProject) => {
   return axios
@@ -56,6 +69,7 @@ const deleteProject = (projectId) => {
 
 const ProjectService = {
   getAllProjects,
+  getProjectById, // Add getProjectById to the service
   createProject,
   updateProject,
   deleteProject,
