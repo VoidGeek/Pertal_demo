@@ -48,7 +48,48 @@ const Navbar = ({ showAdminBoard, showModeratorBoard, currentUser, logOut }) => 
         ) : (
           // Render the desktop navigation links
           <div className="flex space-x-4">
-            {/* ... (desktop navigation links) */}
+            <Link to={"/home"} className="text-lg hover:text-blue-300 text-black">
+              Home
+            </Link>
+            <Link to={"/home/services"} className="text-lg hover:text-blue-300 text-black">
+              Services
+            </Link>
+            <Link to={"/home/feeds"} className="text-lg hover:text-blue-300 text-black">
+              Feeds
+            </Link>
+            {showAdminBoard && (
+              <Link to={"/admin"} className="text-lg hover:text-blue-300 text-black">
+                Admin Board
+              </Link>
+            )}
+            {showModeratorBoard && (
+              <Link to={"/moderator"} className="text-lg hover:text-blue-300 text-black">
+                Moderator Board
+              </Link>
+            )}
+            {currentUser ? (
+              <>
+                <Link to="/profile" className="text-lg hover:text-blue-300 text-black">
+                  {currentUser.username}
+                </Link>
+                <a
+                  href="/login"
+                  className="text-md hover:text-blue-300 cursor-pointer text-white bg-gradient-to-r from-blue-200 to-blue-400 px-4 py-2 rounded-md"
+                  onClick={logOut}
+                >
+                  Log Out
+                </a>
+              </>
+            ) : (
+              <>
+                <Link to="/login" className="text-lg hover:text-blue-300 text-black">
+                  Login
+                </Link>
+                <Link to="/register" className="text-lg hover:text-blue-300 text-black">
+                  Sign Up
+                </Link>
+              </>
+            )}
           </div>
         )}
 
