@@ -7,7 +7,7 @@ function SkeletonCard() {
   return (
     <div className="bg-gradient-to-r from-purple-300 to-purple-100">
       <div className="flex flex-col md:flex-row hover-bg-gray-100 dark-border-gray-700 dark-bg-blue-100 dark-hover-bg-200">
-        <div className="w-full h-96 md:w-96 md:h-96 md:w-96 md-rounded-none md-rounded-l-lg overflow-hidden">
+        <div className="w-full h-96  md:h-96 md:w-96 md-rounded-none md-rounded-l-lg overflow-hidden">
           {/* Placeholder for the image */}
         </div>
         <div className="flex flex-col p-4 leading-normal">

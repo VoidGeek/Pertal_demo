@@ -15,12 +15,11 @@ router.post("/api/projects", [authJwt.verifyToken, authJwt.hasAdminOrModeratorRo
 router.get("/api/projects", projectController.getAllProjects);
 
 // Get a specific project by ID (GET)
-router.get("/api/projects/:id", projectController.getProjectById);
 
+router.get("/api/projects/:id", projectController.getAllProjects);
 // Update a project by ID (PUT)
 router.put("/api/projects/:id", [authJwt.verifyToken, authJwt.hasAdminOrModeratorRole,checkAdminPermission], projectController.updateProject);
 
 // Delete a project by ID (DELETE)
 router.delete("/api/projects/:id", [authJwt.verifyToken, authJwt.hasAdminOrModeratorRole,checkAdminPermission], projectController.deleteProject);
-
 module.exports = router;

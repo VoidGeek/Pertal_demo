@@ -3,6 +3,7 @@ import PostCard from '../pages/posts/PostCard';
 import PostService from '../services/post.service';
 import ImageService from '../services/image.service';
 
+// A component for displaying a skeleton loading card
 const SkeletonCard = () => {
   return (
     <div className="my-4">
@@ -21,6 +22,21 @@ const SkeletonCard = () => {
   );
 };
 
+// A component for displaying a single post card
+const SinglePostCard = ({ post, image }) => {
+  return (
+    <div className="max-w-xs mb-4 md:w-1/2 md:p-2">
+      <div className="relative">
+        <div className="aspect-w-1 aspect-h-1"> {/* Create a 1:1 aspect ratio container */}
+          <div className="absolute inset-0">
+            <PostCard post={post} image={image} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 const Homepage = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [images, setImages] = useState([]);
@@ -28,12 +44,13 @@ const Homepage = () => {
   const [currentPostIndex, setCurrentPostIndex] = useState(0);
 
   useEffect(() => {
+    // Fetch posts and images when the component mounts
     Promise.all([
       PostService.getAllPosts(),
       ImageService.getAllImages(),
     ])
       .then(([posts, imageData]) => {
-        // Sort posts by submittedAt in descending order (latest first)
+        // Sort posts by submission time in descending order (latest first)
         posts.sort((a, b) => new Date(b.submittedAt) - new Date(a.submittedAt));
         setAllPosts(posts);
         setImages(imageData);
@@ -45,14 +62,13 @@ const Homepage = () => {
       });
   }, []);
 
+  // Handle keyboard navigation for posts
   const handleKeyDown = (e) => {
     if (e.key === 'ArrowDown') {
-      // Navigate to the next post when the down arrow key is pressed
       if (currentPostIndex < allPosts.length - 1) {
         setCurrentPostIndex(currentPostIndex + 1);
       }
     } else if (e.key === 'ArrowUp') {
-      // Navigate to the previous post when the up arrow key is pressed
       if (currentPostIndex > 0) {
         setCurrentPostIndex(currentPostIndex - 1);
       }
@@ -63,23 +79,31 @@ const Homepage = () => {
     <section className="py-16 bg-gradient-to-b from-blue-300 to-grey-300">
       <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold mb-8">FEEDS</h2>
-        <div className="my-4 justify-center" style={{ maxWidth: '500px' }}>
-        <div className="space-y-8">
+        <div className="flex flex-col items-center">
           {loading ? (
+            // Render skeleton loading cards while data is loading
             Array(3).fill().map((_, index) => (
-              <SkeletonCard key={index} />
+              <div key={index} className="flex space-x-4">
+                <SkeletonCard />
+                <SkeletonCard />
+              </div>
             ))
           ) : (
-            allPosts.map((post, index) => (
-              <PostCard
-                key={post._id}
-                post={post}
-                image={images.find((image) => image.s3Key === post.post_image)}
-              />
-            ))
+            // Render actual post cards when data is available
+            <div className="md:flex md:flex-row md:flex-wrap">
+              {allPosts.map((post, index) => (
+                <div key={post._id} className="max-w-xs mb-4 md:w-1/2 md:p-2">
+                  <div className> {/* Add margin to create a gap */}
+                    <PostCard
+                      post={post}
+                      image={images.find((image) => image.s3Key === post.post_image)}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
           )}
         </div>
-      </div>
       </div>
     </section>
   );

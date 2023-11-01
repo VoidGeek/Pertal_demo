@@ -1,8 +1,12 @@
-import React from "react";
 import AuthService from "../services/auth.service";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faEnvelope, faIdCard, faPhone, faUsers } from "@fortawesome/free-solid-svg-icons";
-import "../css/loading.css";
+import {
+  faUser,
+  faEnvelope,
+  faIdCard,
+  faPhone,
+  faUsers,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Profile = () => {
   const currentUser = AuthService.getCurrentUser();
@@ -23,48 +27,46 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-300 to-green-200 flex justify-center items-center">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="bg-opacity-70 backdrop-blur-100 shadow-md p-4 border rounded-md ">
-            <div className="bg-gradient-to-br from-blue-400 to-blue-100 text-white p-4 text-center">
-              <h3 className="text-2xl ">
-                <FontAwesomeIcon icon={faUser} className="mr-2 " />
-                <strong>{currentUser.username}</strong> Profile
-              </h3>
+        <div className="max-w-md mx-auto bg-white rounded-md shadow-md p-4">
+          <div className="bg-gradient-to-br from-blue-400 to-blue-100 text-white p-4 text-center rounded-t-md">
+            <h2 className="text-2xl">
+              <FontAwesomeIcon icon={faUser} className="mr-2" />
+              {currentUser.username}'s Profile
+            </h2>
+          </div>
+          <div className="p-4">
+            <div className="mb-4">
+              <FontAwesomeIcon icon={faIdCard} className="mr-2 text-blue-500" />
+              <strong>ID:</strong> {currentUser.id}
             </div>
-            <div className="p-4">
-              <p className="flex items-center">
-                <FontAwesomeIcon icon={faIdCard} className="mr-2" />
-                <strong>ID:</strong> {currentUser.id}
-              </p>
-              <p className="flex items-center">
-                <FontAwesomeIcon icon={faEnvelope} className="mr-2" />
-                <strong>Email:</strong> {currentUser.email}
-              </p>
-              <p className="flex items-center">
-                <FontAwesomeIcon icon={faIdCard} className="mr-2" />
-                <strong>Full Name:</strong> {currentUser.fullName}
-              </p>
-              <p className="flex items-center">
-                <FontAwesomeIcon icon={faPhone} className="mr-2" />
-                <strong>Phone Number:</strong> {currentUser.phoneNo}
-              </p>
-              <strong className="flex items-center">
-                <FontAwesomeIcon icon={faUsers} className="mr-2" />
-                Authorities:
-              </strong>
-              <ul>
-              {currentUser.roles &&
-                currentUser.roles.map((role, index) => (
-                  <li key={index} className="mb-2">
-                    {role === "ROLE_MODERATOR" || role === "ROLE_ADMIN" ? (
-                      <span className="bg-gradient-to-br from-[#FF5733] to-[#FFC300] text-white p-0.5 rounded">
-                        {role}
-                      </span>
-                    ) : (
-                      role
-                    )}
-                  </li>
-                ))}
+            <div className="mb-4">
+              <FontAwesomeIcon icon={faEnvelope} className="mr-2 text-blue-500" />
+              <strong>Email:</strong> {currentUser.email}
+            </div>
+            <div className="mb-4">
+              <FontAwesomeIcon icon={faIdCard} className="mr-2 text-blue-500" />
+              <strong>Full Name:</strong> {currentUser.fullName}
+            </div>
+            <div className="mb-4">
+              <FontAwesomeIcon icon={faPhone} className="mr-2 text-blue-500" />
+              <strong>Phone Number:</strong> {currentUser.phoneNo}
+            </div>
+            <div className="mb-4">
+              <FontAwesomeIcon icon={faUsers} className="mr-2 text-blue-500" />
+              <strong>Authorities:</strong>
+              <ul className="list-disc pl-6 mt-2">
+                {currentUser.roles &&
+                  currentUser.roles.map((role, index) => (
+                    <li key={index}>
+                      {role === "ROLE_MODERATOR" || role === "ROLE_ADMIN" ? (
+                        <span className="bg-gradient-to-br from-[#FF5733] to-[#FFC300] text-white p-1 rounded">
+                          {role}
+                        </span>
+                      ) : (
+                        role
+                      )}
+                    </li>
+                  ))}
               </ul>
             </div>
           </div>
