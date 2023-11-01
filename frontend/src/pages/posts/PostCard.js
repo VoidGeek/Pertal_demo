@@ -29,8 +29,13 @@ function PostCard({ post, image, loading }) {
               </div>
             </div>
             {image && (
-              <div className="w-96 h-96 rounded overflow-hidden mb-4 mx-auto">
-                <img src={image.imageUrl} alt="Post" className="w-full h-full object-cover square-image" />
+              <div className="h-96 rounded overflow-hidden mb-4 mx-auto flex justify-center">
+                <img
+                  src={image.imageUrl}
+                  alt="Post"
+                  className="w-full h-full object-cover square-image"
+                   // Limit the maximum height
+                />
               </div>
             )}
             <h2 className="text-2xl font-bold mb-4">

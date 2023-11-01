@@ -2,7 +2,7 @@ import React from 'react';
 
 function TestimonialCard({ testimonial, image }) {
   return (
-    <div className="bg-white shadow rounded-lg p-4 w-full max-w-md">
+    <div className="bg-gradient-to-r from-gray-100 to-gray-300 shadow rounded-lg p-4 w-full max-w-md">
       <div className="flex items-center">
         {image && (
           <div className="w-20 h-20 rounded-full overflow-hidden mr-4">

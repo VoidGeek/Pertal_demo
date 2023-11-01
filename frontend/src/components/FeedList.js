@@ -61,8 +61,9 @@ const Homepage = () => {
 
   return (
     <section className="py-16 bg-gradient-to-b from-blue-300 to-grey-300">
-      <div className="container mx-auto text-center" style={{ maxWidth: '500px' }}>
+      <div className="container mx-auto text-center">
         <h2 className="text-3xl font-bold mb-8">FEEDS</h2>
+        <div className="my-4 justify-center" style={{ maxWidth: '500px' }}>
         <div className="space-y-8">
           {loading ? (
             Array(3).fill().map((_, index) => (
@@ -78,6 +79,7 @@ const Homepage = () => {
             ))
           )}
         </div>
+      </div>
       </div>
     </section>
   );
