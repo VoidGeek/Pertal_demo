@@ -2,10 +2,10 @@ import React from 'react';
 
 function TestimonialCard({ testimonial, image }) {
   return (
-    <div className="bg-gradient-to-r from-gray-100 to-gray-300 shadow rounded-lg p-4 w-full max-w-md">
-      <div className="flex items-center">
+    <div className="bg-gradient-to-r from-gray-100 to-gray-300 shadow rounded-lg p-4 w-full max-w-md transition-transform transform hover:scale-105">
+      <div className="flex flex-col items-center sm:flex-row"> {/* Adjust layout for small screens */}
         {image && (
-          <div className="w-20 h-20 rounded-full overflow-hidden mr-4">
+          <div className="w-20 h-20 rounded-full overflow-hidden mr-4 sm:mb-0"> {/* Move image to the top in phone view */}
             <img
               src={image.imageUrl}
               alt="Testimonial"
