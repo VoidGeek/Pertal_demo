@@ -109,7 +109,6 @@ const Homepage = () => {
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [allProjects, setAllProjects] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     Promise.all([
@@ -129,22 +128,6 @@ const Homepage = () => {
       });
   }, []);
 
-  const getRandomTestimonials = (testimonials, startIndex, count) => {
-    return testimonials.slice(startIndex, startIndex + count);
-  };
-
-  const testimonialsPerPage = 2; // Number of testimonials to display per page
-  const totalPages = Math.ceil(allTestimonials.length / testimonialsPerPage);
-
-  const handleNextPage = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % totalPages);
-  };
-
-  const randomTestimonials = getRandomTestimonials(
-    allTestimonials,
-    currentIndex * testimonialsPerPage,
-    testimonialsPerPage
-  );
   return (
     <div className="bg-gray-100">
       {/* Hero Section */}
