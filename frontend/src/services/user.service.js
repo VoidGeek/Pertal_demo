@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/"; // Replace with your actual API URL
+const API_URL = "/api"; // Replace with your actual API URL
 
 const getAllUsers = () => {
   return axios
-    .get(`${API_URL}api/users`)
+    .get(`${API_URL}/users`)
     .then((response) => {
       return response.data;
     })
@@ -16,7 +16,7 @@ const getAllUsers = () => {
 
 const createUser = (newUser) => {
   return axios
-    .post(`${API_URL}api/users`, newUser)
+    .post(`${API_URL}/users`, newUser)
     .then((response) => {
       return response.data;
     })
@@ -28,7 +28,7 @@ const createUser = (newUser) => {
 
 const deleteUser = (userId) => {
   return axios
-    .delete(`${API_URL}api/users/${userId}`)
+    .delete(`${API_URL}/users/${userId}`)
     .then((response) => {
       return response.data;
     })
@@ -40,7 +40,7 @@ const deleteUser = (userId) => {
 
 const updateUser = (userId, updatedUserData) => {
   return axios
-    .put(`${API_URL}api/users/${userId}`, updatedUserData)
+    .put(`${API_URL}/users/${userId}`, updatedUserData)
     .then((response) => {
       return response.data;
     })
@@ -52,7 +52,7 @@ const updateUser = (userId, updatedUserData) => {
 
 const getUserById = (userId) => {
     return axios
-      .get(`${API_URL}api/users/${userId}`)
+      .get(`${API_URL}/users/${userId}`)
       .then((response) => {
         return response.data;
       })

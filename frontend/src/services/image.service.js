@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/"; // Replace with your actual API URL
+const API_URL = "/api"; // Replace with your actual API URL
 
 // Fetch all images
 const getAllImages = () => {
   return axios
-    .get(`${API_URL}api/images`)
+    .get(`${API_URL}/images`)
     .then((response) => {
       return response.data;
     })
@@ -18,7 +18,7 @@ const getAllImages = () => {
 // Upload a new image
 const uploadImage = (image) => {
   return axios
-    .post(`${API_URL}api/upload`, image)
+    .post(`${API_URL}/upload`, image)
     .then((response) => {
       return response.data;
     })
@@ -31,7 +31,7 @@ const uploadImage = (image) => {
 // Update an image
 const updateImage = (s3Key, updatedImage) => {
   return axios
-    .put(`${API_URL}api/images/${s3Key}`, updatedImage)
+    .put(`${API_URL}/images/${s3Key}`, updatedImage)
     .then((response) => {
       return response.data;
     })
@@ -44,7 +44,7 @@ const updateImage = (s3Key, updatedImage) => {
 // Delete an image
 const deleteImage = (imageId) => {
   return axios
-    .delete(`${API_URL}api/images/${imageId}`)
+    .delete(`${API_URL}/images/${imageId}`)
     .then((response) => {
       return response.data;
     })
@@ -56,7 +56,7 @@ const deleteImage = (imageId) => {
 
 const getImageByKey = (s3Key) => {
   return axios
-    .get(`${API_URL}api/images/${s3Key}`)
+    .get(`${API_URL}/images/${s3Key}`)
     .then((response) => {
       return response.data;
     })

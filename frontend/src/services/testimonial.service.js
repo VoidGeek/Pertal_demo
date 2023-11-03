@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/"; // Replace with your actual API URL
+const API_URL = "/api"; // Replace with your actual API URL
 
 // Fetch all testimonials
 const getAllTestimonials = () => {
   return axios
-    .get(`${API_URL}api/testimonials`)
+    .get(`${API_URL}/testimonials`)
     .then((response) => {
       return response.data;
     })
@@ -18,7 +18,7 @@ const getAllTestimonials = () => {
 // Create a new testimonial
 const createTestimonial = (newTestimonial) => {
   return axios
-    .post(`${API_URL}api/testimonials`, newTestimonial)
+    .post(`${API_URL}/testimonials`, newTestimonial)
     .then((response) => {
       return response.data;
     })
@@ -31,7 +31,7 @@ const createTestimonial = (newTestimonial) => {
 // Update an existing testimonial
 const updateTestimonial = (testimonialId, updatedTestimonial) => {
   return axios
-    .put(`${API_URL}api/testimonials/${testimonialId}`, updatedTestimonial)
+    .put(`${API_URL}/testimonials/${testimonialId}`, updatedTestimonial)
     .then((response) => {
       return response.data;
     })
@@ -44,7 +44,7 @@ const updateTestimonial = (testimonialId, updatedTestimonial) => {
 // Delete a testimonial
 const deleteTestimonial = (testimonialId) => {
   return axios
-    .delete(`${API_URL}api/testimonials/${testimonialId}`)
+    .delete(`${API_URL}/testimonials/${testimonialId}`)
     .then((response) => {
       return response.data;
     })
@@ -57,7 +57,7 @@ const deleteTestimonial = (testimonialId) => {
 // Get a testimonial by its ID
 const getTestimonialById = (testimonialId) => {
   return axios
-    .get(`${API_URL}api/testimonials/${testimonialId}`)
+    .get(`${API_URL}/testimonials/${testimonialId}`)
     .then((response) => {
       return response.data;
     })

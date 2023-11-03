@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/"; // Replace with your actual API URL
+const API_URL = "/api"; // Replace with your actual API URL
 
 // Fetch all projects
 const requestReset = (email) => {
     return axios
-      .post(`${API_URL}api/request`, { email })
+      .post(`${API_URL}/request`, { email })
       .then((response) => {
         return response.data;
       })
@@ -17,7 +17,7 @@ const requestReset = (email) => {
   
   const verifyOTP = (email, otp) => {
     return axios
-      .post(`${API_URL}api/verify`, { email, otp })
+      .post(`${API_URL}/verify`, { email, otp })
       .then((response) => {
         return response.data;
       })

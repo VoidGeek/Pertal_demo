@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/"; // Replace with your actual API URL
+const API_URL = "/api"; // Replace with your actual API URL
 
 const getAllContacts = () => {
   return axios
-    .get(`${API_URL}api/contacts`)
+    .get(`${API_URL}/contacts`)
     .then((response) => {
       return response.data;
     })
@@ -16,7 +16,7 @@ const getAllContacts = () => {
 
 const createContact = (newContact) => {
   return axios
-    .post(`${API_URL}api/contacts`, newContact)
+    .post(`${API_URL}/contacts`, newContact)
     .then((response) => {
       return response.data;
     })
@@ -28,7 +28,7 @@ const createContact = (newContact) => {
 
 const deleteContact = (contactId) => {
   return axios
-    .delete(`${API_URL}api/contacts/${contactId}`)
+    .delete(`${API_URL}/contacts/${contactId}`)
     .then((response) => {
       return response.data;
     })

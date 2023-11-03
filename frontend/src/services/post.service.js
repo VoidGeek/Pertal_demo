@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/"; // Replace with your actual API URL
+const API_URL = "/api"; // Replace with your actual API URL
 
 // Fetch all posts
 const getAllPosts = () => {
   return axios
-    .get(`${API_URL}api/posts`)
+    .get(`${API_URL}/posts`)
     .then((response) => {
       return response.data;
     })
@@ -18,7 +18,7 @@ const getAllPosts = () => {
 // Fetch a post by ID
 const getPostById = (postId) => {
   return axios
-    .get(`${API_URL}api/posts/${postId}`)
+    .get(`${API_URL}/posts/${postId}`)
     .then((response) => {
       return response.data;
     })
@@ -31,7 +31,7 @@ const getPostById = (postId) => {
 // Create a new post
 const createPost = (newPost) => {
   return axios
-    .post(`${API_URL}api/posts`, newPost)
+    .post(`${API_URL}/posts`, newPost)
     .then((response) => {
       return response.data;
     })
@@ -44,7 +44,7 @@ const createPost = (newPost) => {
 // Update an existing post
 const updatePost = (postId, updatedPost) => {
   return axios
-    .put(`${API_URL}api/posts/${postId}`, updatedPost)
+    .put(`${API_URL}/posts/${postId}`, updatedPost)
     .then((response) => {
       return response.data;
     })
@@ -57,7 +57,7 @@ const updatePost = (postId, updatedPost) => {
 // Delete a post
 const deletePost = (postId) => {
   return axios
-    .delete(`${API_URL}api/posts/${postId}`)
+    .delete(`${API_URL}/posts/${postId}`)
     .then((response) => {
       return response.data;
     })

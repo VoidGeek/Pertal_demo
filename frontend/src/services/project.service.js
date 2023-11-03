@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const API_URL = "http://localhost:3000/"; // Replace with your actual API URL
+const API_URL = "/api"; // Replace with your actual API URL
 
 // Fetch all projects
 const getAllProjects = () => {
   return axios
-    .get(`${API_URL}api/projects`)
+    .get(`${API_URL}/projects`)
     .then((response) => {
       return response.data;
     })
@@ -18,7 +18,7 @@ const getAllProjects = () => {
 // Fetch a project by ID
 const getProjectById = (projectId) => {
   return axios
-    .get(`${API_URL}api/projects/${projectId}`)
+    .get(`${API_URL}/projects/${projectId}`)
     .then((response) => {
       return response.data;
     })
@@ -31,7 +31,7 @@ const getProjectById = (projectId) => {
 // Create a new project
 const createProject = (newProject) => {
   return axios
-    .post(`${API_URL}api/projects`, newProject)
+    .post(`${API_URL}/projects`, newProject)
     .then((response) => {
       return response.data;
     })
@@ -44,7 +44,7 @@ const createProject = (newProject) => {
 // Update an existing project
 const updateProject = (projectId, updatedProject) => {
   return axios
-    .put(`${API_URL}api/projects/${projectId}`, updatedProject)
+    .put(`${API_URL}/projects/${projectId}`, updatedProject)
     .then((response) => {
       return response.data;
     })
@@ -57,7 +57,7 @@ const updateProject = (projectId, updatedProject) => {
 // Delete a project
 const deleteProject = (projectId) => {
   return axios
-    .delete(`${API_URL}api/projects/${projectId}`)
+    .delete(`${API_URL}/projects/${projectId}`)
     .then((response) => {
       return response.data;
     })

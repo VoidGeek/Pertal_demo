@@ -1,11 +1,11 @@
 import axios from 'axios';
 
-const API_URL = 'http://localhost:3000/'; // Replace with your actual API URL
+const API_URL = '/api'; // Replace with your actual API URL
 
 // Fetch all services
 const getAllServices = () => {
   return axios
-    .get(`${API_URL}api/services`)
+    .get(`${API_URL}/services`)
     .then((response) => {
       return response.data;
     })
@@ -18,7 +18,7 @@ const getAllServices = () => {
 // Fetch a service by ID
 const getServiceById = (serviceId) => {
   return axios
-    .get(`${API_URL}api/services/${serviceId}`)
+    .get(`${API_URL}/services/${serviceId}`)
     .then((response) => {
       return response.data;
     })
@@ -31,7 +31,7 @@ const getServiceById = (serviceId) => {
 // Create a new service
 const createService = (newService) => {
   return axios
-    .post(`${API_URL}api/services`, newService)
+    .post(`${API_URL}/services`, newService)
     .then((response) => {
       return response.data;
     })
@@ -44,7 +44,7 @@ const createService = (newService) => {
 // Update an existing service
 const updateService = (serviceId, updatedService) => {
   return axios
-    .put(`${API_URL}api/services/${serviceId}`, updatedService)
+    .put(`${API_URL}/services/${serviceId}`, updatedService)
     .then((response) => {
       return response.data;
     })
@@ -57,7 +57,7 @@ const updateService = (serviceId, updatedService) => {
 // Delete a service
 const deleteService = (serviceId) => {
   return axios
-    .delete(`${API_URL}api/services/${serviceId}`)
+    .delete(`${API_URL}/services/${serviceId}`)
     .then((response) => {
       return response.data;
     })
